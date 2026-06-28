@@ -42,7 +42,7 @@ export default function HomePage() {
       <section className="relative -mt-24 flex min-h-[92vh] items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(/images/hero-farm.svg)" }}
+          style={{ backgroundImage: "url(https://images.unsplash.com/photo-1500076656116-558758f991c1?w=1600&auto=format&q=80)" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-farm-greenDark/30 via-transparent to-farm-cream" />
         <div className="container-x relative z-10 pt-28">
@@ -121,7 +121,7 @@ export default function HomePage() {
       {/* PROCESS */}
       <section
         className="relative bg-cover bg-center py-24"
-        style={{ backgroundImage: "url(/images/about-farm.svg)" }}
+        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&auto=format&q=80)" }}
       >
         <div className="absolute inset-0 bg-farm-greenDark/70" />
         <div className="container-x relative z-10">

@@ -30,7 +30,7 @@ export default function AboutPage() {
     <>
       <section
         className="relative -mt-24 flex min-h-[60vh] items-end bg-cover bg-center"
-        style={{ backgroundImage: "url(/images/about-farm.svg)" }}
+        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&auto=format&q=80)" }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-farm-cream via-farm-greenDark/30 to-transparent" />
         <div className="container-x relative z-10 pb-12">
