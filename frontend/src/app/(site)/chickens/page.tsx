@@ -3,7 +3,7 @@ import ChickenGrid from "@/components/ChickenGrid";
 
 export const metadata: Metadata = {
   title: "Available Naati Kodi",
-  description: "Browse all naturally raised country chickens available at SR Poultry Farm.",
+  description: "Browse all naturally raised country chickens available at SR Naati Kodi Farms.",
 };
 
 export default function ChickensPage() {

@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Our Farm",
-  description: "The story behind SR Poultry Farm — natural farming, free roaming birds, and traditional care.",
+  description: "The story behind SR Naati Kodi Farms — village taste to your home through natural farming, free roaming birds, and traditional care.",
 };
 
 const points = [
@@ -35,9 +35,9 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-farm-cream via-farm-greenDark/30 to-transparent" />
         <div className="container-x relative z-10 pb-12">
           <span className="eyebrow text-farm-sand">Our Story</span>
-          <h1 className="mt-2 font-display text-5xl font-extrabold text-white sm:text-6xl">Why SR Poultry Farm?</h1>
+          <h1 className="mt-2 font-display text-5xl font-extrabold text-white sm:text-6xl">Why SR Naati Kodi Farms?</h1>
           <p className="mt-3 max-w-2xl text-farm-sand">
-            Because real country chicken deserves real country care.
+            Village taste to your home — because real country chicken deserves real country care.
           </p>
         </div>
       </section>
@@ -46,7 +46,7 @@ export default function AboutPage() {
         <Reveal>
           <div className="card mx-auto max-w-3xl p-8 sm:p-10">
             <p className="text-lg leading-relaxed text-stone-600">
-              At <span className="font-semibold text-farm-greenDark">SR Poultry Farm</span>, we raise
+              At <span className="font-semibold text-farm-greenDark">SR Naati Kodi Farms</span>, we raise
               Naati Kodi the way it has always been done — birds roaming freely under open skies,
               fed traditionally, and given clean water and a calm, healthy environment. No factory
               cages, no unnecessary chemicals. Just patient, natural farming that brings out the

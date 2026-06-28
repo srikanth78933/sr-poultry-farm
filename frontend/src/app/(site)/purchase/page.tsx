@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "How to Buy",
-  description: "How buying naturally raised Naati Kodi works at SR Poultry Farm — visit, choose, weigh, pay.",
+  description: "How buying naturally raised Naati Kodi works at SR Naati Kodi Farms — visit, choose, weigh, pay.",
 };
 
 const steps = [

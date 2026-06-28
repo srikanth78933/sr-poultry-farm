@@ -1,17 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: {
-    default: "SR Poultry Farm — Natural Naati Kodi Raised Naturally",
-    template: "%s · SR Poultry Farm",
+    default: "SR Naati Kodi Farms — Village Taste to Your Home",
+    template: "%s · SR Naati Kodi Farms",
   },
   description:
-    "SR Poultry Farm raises natural Naati Kodi (country chicken) — free roaming, traditionally fed, farm fresh. Explore available birds, book a farm visit, and buy after you visit.",
-  keywords: ["Naati Kodi", "country chicken", "natural poultry", "farm fresh chicken", "SR Poultry Farm", "desi kodi"],
+    "SR Naati Kodi Farms — authentic country chicken raised naturally on open pasture in Andhra Pradesh. Free roaming, traditionally fed, farm fresh. Book a farm visit today.",
+  keywords: ["Naati Kodi", "country chicken", "natural poultry", "SR Naati Kodi Farms", "desi kodi", "Andhra Pradesh chicken", "village chicken"],
   openGraph: {
-    title: "SR Poultry Farm — Natural Naati Kodi",
-    description: "Healthy • Traditional • Farm Fresh country chicken, raised naturally.",
+    title: "SR Naati Kodi Farms — Village Taste to Your Home",
+    description: "Pure Taste. Natural Farming. Authentic Naati Kodi from Andhra Pradesh.",
     type: "website",
   },
   icons: { icon: "/favicon.svg" },
@@ -26,7 +27,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
