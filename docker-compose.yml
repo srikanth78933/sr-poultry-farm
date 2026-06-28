@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sr_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sr_poultry}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_password}
+      POSTGRES_DB: ${POSTGRES_DB:-sr_poultry_db}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sr_poultry} -d ${POSTGRES_DB:-sr_poultry_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [srnet]
+
+  backend:
+    build: ./backend
+    container_name: sr_backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      POSTGRES_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - media:/app/storage/uploads
+    networks: [srnet]
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Empty -> browser uses same-origin "/api" proxied by nginx.
+        NEXT_PUBLIC_API_URL: ""
+    container_name: sr_frontend
+    restart: unless-stopped
+    depends_on: [backend]
+    networks: [srnet]
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: sr_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on: [frontend, backend]
+    networks: [srnet]
+
+volumes:
+  pgdata:
+  media:
+
+networks:
+  srnet:
+    driver: bridge

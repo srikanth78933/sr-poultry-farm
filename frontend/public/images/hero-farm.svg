@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Green farm landscape at sunrise">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bbf7d0"/><stop offset="0.45" stop-color="#fef9c3"/><stop offset="1" stop-color="#fefce8"/>
+    </linearGradient>
+    <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#84cc16"/><stop offset="1" stop-color="#4d7c0f"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#65a30d"/><stop offset="1" stop-color="#365314"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1240" cy="240" r="120" fill="#fde68a"/>
+  <circle cx="1240" cy="240" r="170" fill="#fef08a" opacity="0.35"/>
+  <path d="M0 520 C300 440 520 540 820 500 C1100 465 1350 520 1600 470 L1600 900 L0 900 Z" fill="url(#hill1)"/>
+  <path d="M0 640 C260 580 600 690 980 630 C1250 588 1450 660 1600 620 L1600 900 L0 900 Z" fill="url(#hill2)"/>
+  <!-- trees -->
+  <g>
+    <rect x="180" y="470" width="14" height="60" fill="#78350f"/>
+    <circle cx="187" cy="450" r="46" fill="#3f6212"/><circle cx="160" cy="470" r="34" fill="#4d7c0f"/><circle cx="214" cy="470" r="34" fill="#4d7c0f"/>
+  </g>
+  <!-- barn -->
+  <g transform="translate(1080,430)">
+    <rect x="0" y="40" width="180" height="120" fill="#b91c1c"/>
+    <path d="M-12 40 L90 -6 L192 40 Z" fill="#7f1d1d"/>
+    <rect x="70" y="92" width="40" height="68" fill="#fde68a"/>
+    <rect x="20" y="70" width="34" height="30" fill="#fca5a5"/>
+  </g>
+  <!-- little roaming chickens -->
+  <g transform="translate(520,690) scale(0.9)">
+    <ellipse cx="0" cy="0" rx="34" ry="26" fill="#b45309"/><circle cx="28" cy="-18" r="16" fill="#b45309"/>
+    <path d="M22 -30 q6 -12 12 -2 q6 -10 10 0 q-4 8 -14 8 Z" fill="#dc2626"/>
+    <path d="M42 -18 l16 -4 l-16 8 Z" fill="#f59e0b"/>
+    <circle cx="32" cy="-20" r="3" fill="#1c1917"/>
+    <path d="M-30 0 q-26 -10 -10 -24 q4 12 16 14 Z" fill="#7c2d12"/>
+    <g stroke="#f59e0b" stroke-width="4"><path d="M-6 24 l0 16"/><path d="M10 24 l0 16"/></g>
+  </g>
+  <g transform="translate(700,720) scale(0.7)">
+    <ellipse cx="0" cy="0" rx="34" ry="26" fill="#fcd34d"/><circle cx="28" cy="-18" r="16" fill="#fcd34d"/>
+    <path d="M22 -30 q6 -12 12 -2 q6 -10 10 0 q-4 8 -14 8 Z" fill="#ef4444"/>
+    <path d="M42 -18 l16 -4 l-16 8 Z" fill="#f59e0b"/>
+    <circle cx="32" cy="-20" r="3" fill="#1c1917"/>
+    <path d="M-30 0 q-26 -10 -10 -24 q4 12 16 14 Z" fill="#d97706"/>
+    <g stroke="#f59e0b" stroke-width="4"><path d="M-6 24 l0 16"/><path d="M10 24 l0 16"/></g>
+  </g>
+</svg>

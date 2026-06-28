@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Country chicken illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ecfccb"/><stop offset="1" stop-color="#d9f99d"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.82" cy="0.2" r="0.5">
+      <stop offset="0" stop-color="#fef9c3"/><stop offset="1" stop-color="#fef9c3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#bg)"/>
+  <rect width="480" height="360" fill="url(#sun)"/>
+  <ellipse cx="240" cy="330" rx="220" ry="40" fill="#65a30d" opacity="0.35"/>
+  <ellipse cx="250" cy="300" rx="120" ry="26" fill="#3f6212" opacity="0.25"/>
+  <!-- tail -->
+  <path d="M120 230 C70 150 110 120 150 150 C120 170 150 210 175 215 Z" fill="#0f172a"/>
+  <path d="M120 235 C80 175 120 140 160 165 C135 185 160 220 185 225 Z" fill="#111827"/>
+  <!-- body -->
+  <path d="M150 230 C150 150 220 120 280 150 C330 175 330 250 285 280 C240 305 170 300 150 230 Z" fill="#1f2937"/>
+  <path d="M205 250 C200 205 240 185 280 200 C305 215 300 260 270 275 C240 288 215 285 205 250 Z" fill="#374151"/>
+  <!-- wing -->
+  <path d="M210 215 C250 195 300 205 305 235 C290 255 240 258 210 240 Z" fill="#111827"/>
+  <!-- head -->
+  <circle cx="305" cy="150" r="42" fill="#1f2937"/>
+  <!-- comb -->
+  <path d="M285 112 q10 -22 22 -4 q12 -22 22 -2 q10 -18 18 4 q-8 14 -30 16 q-22 2 -32 -14 Z" fill="#dc2626"/>
+  <!-- beak -->
+  <path d="M345 150 l34 -8 l-34 18 Z" fill="#f59e0b"/>
+  <!-- wattle -->
+  <path d="M330 172 q10 22 -2 30 q-14 -4 -10 -28 Z" fill="#dc2626"/>
+  <!-- eye -->
+  <circle cx="318" cy="142" r="7" fill="#1c1917"/>
+  <circle cx="320" cy="140" r="2.4" fill="#fff"/>
+  <!-- legs -->
+  <g stroke="#f59e0b" stroke-width="7" stroke-linecap="round">
+    <path d="M235 295 l-6 34"/><path d="M270 298 l4 34"/>
+  </g>
+  <g stroke="#f59e0b" stroke-width="5" stroke-linecap="round">
+    <path d="M229 329 l-12 6"/><path d="M229 329 l-2 12"/>
+    <path d="M274 332 l12 6"/><path d="M274 332 l2 12"/>
+  </g>
+</svg>
