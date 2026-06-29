@@ -49,7 +49,7 @@ def header_footer(canvas, doc):
     canvas.line(18*mm, 14*mm, w - 18*mm, 14*mm)
     canvas.setFillColor(colors.HexColor("#a8a29e"))
     canvas.setFont("Helvetica", 7.5)
-    canvas.drawString(18*mm, 9*mm, "Natural Naati Kodi - Raised Naturally")
+    canvas.drawString(18*mm, 9*mm, "Natural Natu Kodi - Raised Naturally")
     canvas.drawRightString(w - 18*mm, 9*mm, "Page %d" % doc.page)
     canvas.restoreState()
 
@@ -76,7 +76,7 @@ def cover_bg(canvas, doc):
     canvas.drawCentredString(w/2, h-38*mm, "SR Poultry Farm")
     canvas.setFillColor(SAND)
     canvas.setFont("Helvetica", 13)
-    canvas.drawCentredString(w/2, h-48*mm, "Natural Naati Kodi - Raised Naturally")
+    canvas.drawCentredString(w/2, h-48*mm, "Natural Natu Kodi - Raised Naturally")
     canvas.setFillColor(GOLD)
     canvas.setFont("Helvetica-Bold", 10)
     canvas.drawCentredString(w/2, h-56*mm, "Healthy  -  Traditional  -  Farm Fresh")
@@ -137,7 +137,7 @@ st.append(PageBreak())
 st.append(Paragraph("1. Overview", styles["H1"]))
 st.append(HRFlowable(width="100%", thickness=1.4, color=GOLD, spaceAfter=6))
 st.append(Paragraph(
-    "This application powers SR Poultry Farm, a premium natural country-chicken (Naati Kodi) brand. "
+    "This application powers SR Poultry Farm, a premium natural country-chicken (Natu Kodi) brand. "
     "Customers browse available birds, read about the farm, and book a farm visit. Because birds are sold "
     "by live weight, purchases are recorded by the farm after the customer visits, selects a bird, and it is "
     "weighed - producing a final bill and payment record. An admin dashboard manages everything.", styles["Body"]))
@@ -173,7 +173,7 @@ st.append(bullets([
 ]))
 st.append(Paragraph("Step 3 - Launch everything", styles["H2"]))
 st.append(code("docker compose up --build"))
-st.append(Paragraph("On first boot the backend waits for PostgreSQL, creates all tables, and seeds a default admin plus sample Naati Kodi listings.", styles["Body"]))
+st.append(Paragraph("On first boot the backend waits for PostgreSQL, creates all tables, and seeds a default admin plus sample Natu Kodi listings.", styles["Body"]))
 st.append(Paragraph("Step 4 - Open the app", styles["H2"]))
 t2 = Table([
     ["http://localhost", "Customer website (served via nginx)"],
@@ -207,7 +207,7 @@ st.append(HRFlowable(width="100%", thickness=1.4, color=GOLD, spaceAfter=6))
 db = Table([
     ["Table", "Purpose"],
     ["users", "Admin / staff accounts (hashed passwords, roles)"],
-    ["chickens", "Naati Kodi inventory (breed, weight range, price/kg, status)"],
+    ["chickens", "Natu Kodi inventory (breed, weight range, price/kg, status)"],
     ["chicken_images", "Multiple images per bird"],
     ["farm_visits", "Visit bookings (date, slot, visitors, purpose) + status"],
     ["customers", "Buyer records"],

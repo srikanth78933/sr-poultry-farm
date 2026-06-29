@@ -47,7 +47,7 @@ export default function Footer() {
       {/* Quote strip */}
       <div className="border-b border-white/10 bg-gradient-to-r from-farm-greenDark via-farm-green/30 to-farm-greenDark py-8 text-center">
         <p className="font-display text-xl font-bold text-white sm:text-2xl">&ldquo;{t.footer.tagline}&rdquo;</p>
-        <p className="mt-1.5 text-sm text-farm-sand/60 uppercase tracking-widest">SR Naati Kodi Farms</p>
+        <p className="mt-1.5 text-sm text-farm-sand/60 uppercase tracking-widest">SR Natu Kodi Farms</p>
       </div>
 
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
@@ -56,12 +56,12 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <LogoMark size={46} />
             <div>
-              <p className="font-display text-lg font-bold text-white">SR Naati Kodi Farms</p>
+              <p className="font-display text-lg font-bold text-white">SR Natu Kodi Farms</p>
               <p className="text-[11px] font-semibold uppercase tracking-widest text-farm-gold/80">Village taste to your home</p>
             </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-farm-sand/70">
-            Authentic Naati Kodi raised on open pasture in Andhra Pradesh — free roaming, naturally fed, traditionally raised.
+            Authentic Natu Kodi raised on open pasture in Andhra Pradesh — free roaming, naturally fed, traditionally raised.
           </p>
           {/* Social */}
           <div className="mt-5 flex gap-3">
@@ -123,8 +123,8 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-farm-sand/70">
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-farm-gold" />
-              <a href="mailto:srnaatikodifarms@gmail.com" className="hover:text-white transition-colors break-all">
-                srnaatikodifarms@gmail.com
+              <a href="mailto:srnatukodifarms@gmail.com" className="hover:text-white transition-colors break-all">
+                srnatukodifarms@gmail.com
               </a>
             </li>
             <li className="flex items-start gap-2">
@@ -136,7 +136,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 py-5 text-center text-xs text-farm-sand/40">
-        © {new Date().getFullYear()} SR Naati Kodi Farms · Pure Taste. Natural Farming. · {t.footer.loc}
+        © {new Date().getFullYear()} SR Natu Kodi Farms · Pure Taste. Natural Farming. · {t.footer.loc}
       </div>
     </footer>
   );

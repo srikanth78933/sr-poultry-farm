@@ -43,7 +43,7 @@ export default function AdminLogin() {
           <div className="mb-7 flex flex-col items-center text-center">
             <LogoMark size={60} />
             <h1 className="mt-4 font-display text-2xl font-bold text-farm-greenDark">
-              SR Naati Kodi Farms
+              SR Natu Kodi Farms
             </h1>
             <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-farm-leaf">
               Village taste to your home

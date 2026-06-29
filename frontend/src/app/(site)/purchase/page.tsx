@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "How to Buy",
-  description: "How buying naturally raised Naati Kodi works at SR Naati Kodi Farms — visit, choose, weigh, pay.",
+  description: "How buying naturally raised Natu Kodi works at SR Natu Kodi Farms — visit, choose, weigh, pay.",
 };
 
 const steps = [
@@ -23,7 +23,7 @@ export default function PurchasePage() {
     <section className="container-x py-16">
       <Reveal className="mb-12 text-center">
         <span className="eyebrow">The Purchase Flow</span>
-        <h1 className="section-title mt-2 text-4xl sm:text-5xl">How to Buy Our Naati Kodi</h1>
+        <h1 className="section-title mt-2 text-4xl sm:text-5xl">How to Buy Our Natu Kodi</h1>
         <p className="mx-auto mt-3 max-w-2xl text-stone-500">
           We believe in honesty and transparency. That is why we sell only after you visit —
           so you choose your bird and see it weighed live before you pay.

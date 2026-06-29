@@ -7,7 +7,7 @@ import { SAMPLE_CHICKENS } from "@/lib/sampleData";
 
 const WA_NUMBER = "917893398267";
 const WA_URL = `https://wa.me/${WA_NUMBER}`;
-const FRANCHISE_WA = `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20SR%20Naati%20Kodi%20Farms%20Franchise.`;
+const FRANCHISE_WA = `https://wa.me/${WA_NUMBER}?text=Hi%2C%20I%27m%20interested%20in%20SR%20Natu%20Kodi%20Farms%20Franchise.`;
 
 /* icons that can't be animated server-side, but used in JSX */
 const CHECK_ICONS = [
@@ -121,7 +121,7 @@ export default function HomePage() {
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl shadow-farm-green/20">
                   <Image
                     src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=900&auto=format&q=85"
-                    alt="Naati Kodi on the farm"
+                    alt="Natu Kodi on the farm"
                     fill
                     className="object-cover animate-float"
                     priority
@@ -166,8 +166,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════ NAATI KODI COLLECTION ════════ */}
-      <section id="naati-kodi" className="py-20 bg-stone-50">
+      {/* ════════ NATU KODI COLLECTION ════════ */}
+      <section id="natu-kodi" className="py-20 bg-stone-50">
         <div className="container-x">
           <div className="text-center">
             <span className="eyebrow">{t.products.eyebrow}</span>
@@ -242,7 +242,7 @@ export default function HomePage() {
               </div>
               <div className="absolute -bottom-5 right-4 rounded-2xl bg-farm-greenDark px-5 py-4 shadow-2xl max-w-[200px]">
                 <p className="font-display text-sm font-bold italic text-white">&ldquo;{t.story.quote}&rdquo;</p>
-                <p className="mt-1 text-[10px] text-farm-sand/60">SR Naati Kodi Farms</p>
+                <p className="mt-1 text-[10px] text-farm-sand/60">SR Natu Kodi Farms</p>
               </div>
               <div className="absolute -left-4 -top-4 -z-10 h-full w-full rounded-3xl bg-farm-green/10" />
             </div>
@@ -410,11 +410,11 @@ export default function HomePage() {
                 <Mail className="h-5 w-5 text-farm-green" />
               </div>
               <h3 className="mt-4 font-display text-lg font-bold text-farm-greenDark">{t.contact.emailTitle}</h3>
-              <a href="mailto:srnaatikodifarms@gmail.com"
+              <a href="mailto:srnatukodifarms@gmail.com"
                 className="mt-4 block break-all text-base font-semibold text-stone-700 hover:text-farm-green transition-colors">
-                srnaatikodifarms@gmail.com
+                srnatukodifarms@gmail.com
               </a>
-              <a href="mailto:srnaatikodifarms@gmail.com"
+              <a href="mailto:srnatukodifarms@gmail.com"
                 className="mt-5 inline-flex items-center gap-1.5 rounded-xl border-2 border-farm-green/30 px-4 py-2 text-sm font-bold text-farm-greenDark hover:bg-farm-green hover:text-white hover:border-farm-green transition-colors">
                 <Mail className="h-4 w-4" />
               </a>

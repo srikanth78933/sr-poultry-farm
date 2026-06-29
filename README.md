@@ -1,7 +1,7 @@
-# 🐔 SR Poultry Farm — Natural Naati Kodi
+# 🐔 SR Poultry Farm — Natural Natu Kodi
 
 A production-ready, full-stack web application for **SR Poultry Farm**, a premium
-natural country-chicken (Naati Kodi) brand. Customers explore available birds, learn
+natural country-chicken (Natu Kodi) brand. Customers explore available birds, learn
 about the farm, and **book a farm visit**; purchases are recorded by the farm after the
 customer visits, selects a bird, and it is weighed live.
 
@@ -14,7 +14,7 @@ customer visits, selects a bird, and it is weighed live.
 
 ### Customer website
 - **Premium landing page** with hero, free-roaming farm visuals, animations and glassmorphism.
-- **Available Naati Kodi** — dynamic cards: image, breed, weight range, price/kg, availability, age, description.
+- **Available Natu Kodi** — dynamic cards: image, breed, weight range, price/kg, availability, age, description.
 - **About the Farm** — storytelling: natural farming, free roaming, traditional feeding, clean water, quality assurance + 4-step farming process.
 - **How to Buy** — the full visit → select → weigh → bill → pay journey.
 - **Farm Visit Booking** — pick date & time slot, name, mobile, visitors, purpose, with **double-booking prevention** and confirmation.
@@ -134,7 +134,7 @@ npm run dev                   # http://localhost:3000
 | Table            | Purpose                                              |
 |------------------|------------------------------------------------------|
 | `users`          | Admin / staff accounts (hashed passwords, roles)     |
-| `chickens`       | Naati Kodi inventory (breed, weight, price, status)  |
+| `chickens`       | Natu Kodi inventory (breed, weight, price, status)  |
 | `chicken_images` | Multiple images per bird                             |
 | `farm_visits`    | Visit bookings (date, slot, visitors) + status       |
 | `customers`      | Buyer records                                        |

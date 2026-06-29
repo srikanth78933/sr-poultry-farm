@@ -91,7 +91,7 @@ export default function InventoryPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl font-bold text-farm-greenDark">Chicken Inventory</h1>
-          <p className="text-stone-500">Add, update and remove your Naati Kodi listings.</p>
+          <p className="text-stone-500">Add, update and remove your Natu Kodi listings.</p>
         </div>
         <button onClick={openNew} className="btn-primary"><Plus className="h-5 w-5" /> Add Bird</button>
       </div>

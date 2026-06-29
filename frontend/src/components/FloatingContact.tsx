@@ -4,7 +4,7 @@ import { Phone } from "lucide-react";
 
 const WA_NUMBER = "917893398267";
 const CALL_NUMBER = "+917893398267";
-const WA_URL = `https://wa.me/${WA_NUMBER}?text=Hello%20SR%20Naati%20Kodi%20Farms%2C%20I'm%20interested%20in%20your%20Naati%20Kodi.`;
+const WA_URL = `https://wa.me/${WA_NUMBER}?text=Hello%20SR%20Natu%20Kodi%20Farms%2C%20I'm%20interested%20in%20your%20Natu%20Kodi.`;
 
 function WhatsAppIcon() {
   return (

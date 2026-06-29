@@ -60,7 +60,7 @@ export default function Navbar() {
                 <LogoMark size={40} />
               </span>
               <span className="hidden sm:block leading-tight">
-                <span className="block font-display text-[15px] font-bold text-farm-greenDark tracking-tight">SR Naati Kodi Farms</span>
+                <span className="block font-display text-[15px] font-bold text-farm-greenDark tracking-tight">SR Natu Kodi Farms</span>
                 <span className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-farm-leaf">Village taste to your home</span>
               </span>
             </Link>

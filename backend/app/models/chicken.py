@@ -7,7 +7,7 @@ from app.models.enums import ChickenStatus
 
 
 class Chicken(Base):
-    """A country chicken (Naati Kodi) listing in the inventory."""
+    """A country chicken (Natu Kodi) listing in the inventory."""
     __tablename__ = "chickens"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
