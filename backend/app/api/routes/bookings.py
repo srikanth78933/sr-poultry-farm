@@ -6,10 +6,15 @@ from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
+from app.core.notify import (
+    approval_message, build_customer_whatsapp_link, decline_message,
+    send_admin_booking_alert, verify_review_token,
+)
 from app.models import FarmVisit
 from app.models.enums import BookingStatus
 from app.schemas.booking import (
-    BookingCreate, BookingOut, BookingStatusUpdate, SlotAvailability,
+    BookingCreate, BookingOut, BookingReviewAction, BookingReviewResult,
+    BookingStatusUpdate, SlotAvailability,
 )
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
@@ -54,7 +59,46 @@ def create_booking(payload: BookingCreate, db: Session = Depends(get_db)):
     db.add(obj)
     db.commit()
     db.refresh(obj)
+    send_admin_booking_alert(obj)
     return obj
+
+
+# ---- Public: one-tap WhatsApp magic-link review (no login) ----
+@router.get("/review/{booking_id}", response_model=BookingOut)
+def get_booking_for_review(booking_id: int, token: str, db: Session = Depends(get_db)):
+    if not verify_review_token(booking_id, token):
+        raise HTTPException(403, "This link is invalid or has expired")
+    obj = db.get(FarmVisit, booking_id)
+    if not obj:
+        raise HTTPException(404, "Booking not found")
+    return obj
+
+
+@router.post("/review/{booking_id}", response_model=BookingReviewResult)
+def act_on_booking_review(
+    booking_id: int, token: str, payload: BookingReviewAction, db: Session = Depends(get_db)
+):
+    if not verify_review_token(booking_id, token):
+        raise HTTPException(403, "This link is invalid or has expired")
+    obj = db.get(FarmVisit, booking_id)
+    if not obj:
+        raise HTTPException(404, "Booking not found")
+    if obj.status != BookingStatus.pending:
+        raise HTTPException(409, f"This booking was already marked as {obj.status.value}")
+
+    whatsapp_link = None
+    if payload.action == "approve":
+        obj.status = BookingStatus.approved
+        msg = approval_message(obj.customer_name, obj.visit_date, obj.time_slot)
+        whatsapp_link = build_customer_whatsapp_link(obj.mobile, msg)
+    else:
+        obj.status = BookingStatus.rejected
+        msg = decline_message(obj.customer_name)
+        whatsapp_link = build_customer_whatsapp_link(obj.mobile, msg)
+
+    db.commit()
+    db.refresh(obj)
+    return BookingReviewResult(booking=obj, whatsapp_link=whatsapp_link)
 
 
 # ---- Admin protected ----

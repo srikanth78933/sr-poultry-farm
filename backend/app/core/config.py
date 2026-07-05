@@ -30,6 +30,13 @@ class Settings(BaseSettings):
     # CORS
     BACKEND_CORS_ORIGINS: str = "http://localhost:3000,http://localhost"
 
+    # Public site URL (used to build WhatsApp magic links)
+    APP_BASE_URL: str = "http://localhost:3000"
+
+    # WhatsApp admin alerts (via CallMeBot — https://www.callmebot.com/blog/free-api-whatsapp-messages/)
+    ADMIN_WHATSAPP_NUMBER: str = ""
+    CALLMEBOT_API_KEY: str = ""
+
     # Storage
     STORAGE_BACKEND: str = "local"
     LOCAL_STORAGE_DIR: str = "/app/storage/uploads"

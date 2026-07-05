@@ -8,6 +8,8 @@ import {
 import { getToken, clearToken, api } from "@/lib/api";
 import LogoMark from "@/components/LogoMark";
 
+interface AdminUser { name: string; email: string; role: string }
+
 const nav = [
   { href: "/admin",           label: "Dashboard",      icon: LayoutDashboard },
   { href: "/admin/inventory", label: "Birds",          icon: Boxes           },
@@ -22,12 +24,13 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [open, setOpen]   = useState(false);
+  const [user, setUser]   = useState<AdminUser | null>(null);
 
   useEffect(() => {
     const token = getToken();
     if (!token) { router.replace("/admin/login"); return; }
-    api("/auth/me", { auth: true })
-      .then(() => setReady(true))
+    api<AdminUser>("/auth/me", { auth: true })
+      .then((u) => { setUser(u); setReady(true); })
       .catch(() => { clearToken(); router.replace("/admin/login"); });
   }, [router]);
 
@@ -46,18 +49,16 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   const SidebarContent = () => (
     <>
-      {/* Logo */}
-      <Link href="/admin" className="flex items-center gap-2.5 mb-10" onClick={() => setOpen(false)}>
-        <LogoMark size={42} />
-        <div>
-          <div className="text-cream font-serif uppercase text-sm tracking-tight font-semibold">
-            Natu Kodi
-          </div>
-          <div className="text-[9px] uppercase tracking-[0.22em] text-cream/40">
-            Admin Console
-          </div>
+      {/* Logo — on its own cream card so the logo's wordmark stays legible
+          against the dark sidebar instead of blending into it. */}
+      <Link href="/admin" className="block mb-2" onClick={() => setOpen(false)}>
+        <div className="rounded-md bg-cream/95 border border-amber-farm/25 shadow-lift px-4 py-4 flex justify-center">
+          <LogoMark size={52} />
         </div>
       </Link>
+      <p className="mb-8 text-center text-[10px] uppercase tracking-[0.3em] text-amber-farm/80 font-semibold">
+        Admin Console
+      </p>
 
       {/* Nav items */}
       <nav className="space-y-1 flex-1">
@@ -69,24 +70,32 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm transition-colors ${
+              className={`group flex items-center gap-3 px-3.5 py-2.5 rounded-md text-sm transition-all ${
                 active
-                  ? "bg-cream/10 text-cream border-l-2 border-amber-farm"
-                  : "text-cream/60 hover:bg-cream/5 hover:text-cream"
+                  ? "bg-amber-farm/15 text-cream shadow-craft"
+                  : "text-cream/55 hover:bg-cream/[0.06] hover:text-cream"
               }`}
             >
-              <n.icon className="size-4" />
+              <span className={`h-4 w-[3px] rounded-full transition-colors ${active ? "bg-amber-farm" : "bg-transparent"}`} />
+              <n.icon className={`size-4 ${active ? "text-amber-farm" : "text-cream/40 group-hover:text-cream/70"}`} />
               <span className="uppercase tracking-widest text-xs">{n.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="mt-8 pt-6 border-t border-cream/10">
+      {/* Signed-in-as + Logout */}
+      <div className="mt-8 pt-5 border-t border-cream/10">
+        {user && (
+          <div className="mb-3 px-1">
+            <p className="text-[9px] uppercase tracking-widest text-cream/35">Signed in as</p>
+            <p className="truncate text-sm font-medium text-cream/80">{user.name}</p>
+          </div>
+        )}
         <button
           onClick={logout}
-          className="flex w-full items-center gap-3 px-3 py-2 text-xs uppercase tracking-widest text-cream/50 hover:text-cream transition-colors"
+          className="flex w-full items-center gap-3 px-3 py-2 rounded-md text-xs uppercase tracking-widest
+                     text-cream/50 hover:bg-cream/[0.06] hover:text-cream transition-colors"
         >
           <LogOut className="size-4" /> Sign Out
         </button>
@@ -97,7 +106,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-screen bg-soil flex">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex w-64 shrink-0 bg-forest text-cream/70 min-h-screen p-6 flex-col relative overflow-hidden">
+      <aside className="hidden lg:flex w-64 shrink-0 bg-gradient-to-b from-forest to-forest-deep text-cream/70 min-h-screen p-5 flex-col relative overflow-hidden">
         <div className="absolute inset-0 kraft-noise opacity-10 pointer-events-none" />
         <div className="relative flex flex-col h-full">
           <SidebarContent />
@@ -122,7 +131,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
         {/* Mobile drawer */}
         {open && (
-          <div className="lg:hidden bg-forest text-cream/70 px-6 py-6 flex flex-col relative overflow-hidden">
+          <div className="lg:hidden bg-gradient-to-b from-forest to-forest-deep text-cream/70 px-5 py-6 flex flex-col relative overflow-hidden">
             <div className="absolute inset-0 kraft-noise opacity-10 pointer-events-none" />
             <div className="relative"><SidebarContent /></div>
           </div>

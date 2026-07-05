@@ -1,6 +1,6 @@
 import re
 from datetime import date, datetime
-from typing import Optional
+from typing import Literal, Optional
 from pydantic import BaseModel, Field, field_validator
 from app.models.enums import BookingStatus
 
@@ -45,6 +45,15 @@ class BookingOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class BookingReviewAction(BaseModel):
+    action: Literal["approve", "decline"]
+
+
+class BookingReviewResult(BaseModel):
+    booking: BookingOut
+    whatsapp_link: Optional[str] = None
 
 
 class SlotAvailability(BaseModel):
