@@ -26,3 +26,10 @@ backend/storage/uploads/*
 .idea/
 .vscode/
 *.log
+
+# Lovable design source (large, not needed in repo)
+lovable-project*/
+
+# Scratch/intermediate logo files
+frontend/public/roost_nobg.png
+frontend/public/rooster_icon.png

@@ -6,8 +6,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    PROJECT_NAME: str = "SR Poultry Farm API"
+    PROJECT_NAME: str = "Natu Kodi Farms API"
     API_V1_PREFIX: str = "/api"
+    ENVIRONMENT: str = "production"
 
     # Database
     POSTGRES_HOST: str = "postgres"

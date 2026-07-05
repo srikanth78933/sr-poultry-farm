@@ -19,7 +19,7 @@ export default function ChickenGrid({ featuredOnly = false }: { featuredOnly?: b
     return (
       <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="card h-80 animate-pulse bg-stone-100" />
+          <div key={i} className="card h-80 animate-pulse bg-kraft/40" />
         ))}
       </div>
     );

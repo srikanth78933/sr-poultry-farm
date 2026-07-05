@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Check, X, Phone, Users } from "lucide-react";
+import { Check, X, Phone, Users, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Booking, BookingStatus } from "@/types";
 import StatusBadge from "@/components/StatusBadge";
@@ -8,72 +8,141 @@ import StatusBadge from "@/components/StatusBadge";
 const FILTERS: (BookingStatus | "all")[] = ["all", "pending", "approved", "rejected", "completed"];
 
 export default function BookingsPage() {
-  const [items, setItems] = useState<Booking[]>([]);
+  const [items, setItems]   = useState<Booking[]>([]);
   const [filter, setFilter] = useState<BookingStatus | "all">("all");
+  const [error, setError]   = useState("");
+  const [busy, setBusy]     = useState<number | null>(null);
 
   function load() {
     const q = filter === "all" ? "" : `?status=${filter}`;
-    api<Booking[]>(`/bookings${q}`, { auth: true }).then(setItems).catch(() => setItems([]));
+    api<Booking[]>(`/bookings${q}`, { auth: true })
+      .then(setItems)
+      .catch((e) => setError(e.message));
   }
   useEffect(load, [filter]);
 
   async function setStatus(id: number, status: BookingStatus) {
-    await api(`/bookings/${id}`, { method: "PATCH", json: { status }, auth: true }).catch(() => {});
-    load();
+    setBusy(id);
+    setError("");
+    try {
+      await api(`/bookings/${id}`, { method: "PATCH", json: { status }, auth: true });
+      load();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Action failed");
+    } finally {
+      setBusy(null);
+    }
   }
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-bold text-farm-greenDark">Farm Visit Bookings</h1>
-      <p className="text-stone-500">Approve or reject visit requests.</p>
+      {/* Header */}
+      <div className="mb-8">
+        <p className="eyebrow">Admin</p>
+        <h1 className="font-serif text-3xl text-forest font-medium mt-1">Farm Visit Bookings</h1>
+        <p className="text-sm text-forest/60 mt-1">Approve or reject visit requests.</p>
+      </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      {error && (
+        <div className="mb-4 rounded-sm bg-red-50 border border-red-200 px-4 py-3">
+          <p className="text-sm text-red-700">{error}</p>
+        </div>
+      )}
+
+      {/* Filters */}
+      <div className="mb-5 flex flex-wrap gap-2">
         {FILTERS.map((f) => (
-          <button key={f} onClick={() => setFilter(f)}
-            className={`chip capitalize ${filter === f ? "bg-farm-green text-white" : "bg-white text-stone-600"}`}>
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`rounded-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-widest transition border ${
+              filter === f
+                ? "border-forest bg-forest text-cream"
+                : "border-forest/20 text-forest/70 hover:border-forest/40 hover:text-forest"
+            }`}
+          >
             {f}
           </button>
         ))}
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
+      {/* Table */}
+      <div className="overflow-x-auto card">
         <table className="w-full text-left text-sm">
-          <thead className="bg-farm-green/5 text-stone-500">
+          <thead className="border-b border-forest/10 bg-kraft/30">
             <tr>
-              <th className="px-5 py-3 font-semibold">Visitor</th>
-              <th className="px-5 py-3 font-semibold">Date</th>
-              <th className="px-5 py-3 font-semibold">Slot</th>
-              <th className="px-5 py-3 font-semibold">Visitors</th>
-              <th className="px-5 py-3 font-semibold">Status</th>
-              <th className="px-5 py-3 font-semibold">Actions</th>
+              {["Visitor", "Date", "Slot", "Visitors", "Status", "Actions"].map((h) => (
+                <th key={h} className="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-forest/60">
+                  {h}
+                </th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100">
+          <tbody className="divide-y divide-forest/5">
             {items.map((b) => (
-              <tr key={b.id} className="hover:bg-stone-50">
+              <tr key={b.id} className="hover:bg-kraft/20 transition-colors">
                 <td className="px-5 py-3">
-                  <p className="font-semibold text-stone-800">{b.customer_name}</p>
-                  <p className="flex items-center gap-1 text-xs text-stone-400"><Phone className="h-3 w-3" /> {b.mobile}</p>
-                  {b.purpose && <p className="mt-1 max-w-xs text-xs text-stone-400">{b.purpose}</p>}
+                  <p className="font-medium text-forest">{b.customer_name}</p>
+                  <p className="flex items-center gap-1 text-xs text-forest/50 mt-0.5">
+                    <Phone className="h-3 w-3" /> {b.mobile}
+                  </p>
+                  {b.purpose && (
+                    <p className="mt-1 max-w-xs text-xs text-forest/40">{b.purpose}</p>
+                  )}
                 </td>
-                <td className="px-5 py-3 text-stone-600">{b.visit_date}</td>
-                <td className="px-5 py-3 text-stone-600">{b.time_slot}</td>
-                <td className="px-5 py-3"><span className="inline-flex items-center gap-1 text-stone-600"><Users className="h-4 w-4" />{b.num_visitors}</span></td>
+                <td className="px-5 py-3 text-forest/80">{b.visit_date}</td>
+                <td className="px-5 py-3 text-forest/80">{b.time_slot}</td>
+                <td className="px-5 py-3">
+                  <span className="inline-flex items-center gap-1 text-forest/80">
+                    <Users className="h-4 w-4" />{b.num_visitors}
+                  </span>
+                </td>
                 <td className="px-5 py-3"><StatusBadge status={b.status} /></td>
                 <td className="px-5 py-3">
                   <div className="flex gap-2">
-                    <button onClick={() => setStatus(b.id, "approved")} title="Approve"
-                      className="grid h-8 w-8 place-items-center rounded-lg bg-emerald-100 text-emerald-700 hover:bg-emerald-200"><Check className="h-4 w-4" /></button>
-                    <button onClick={() => setStatus(b.id, "rejected")} title="Reject"
-                      className="grid h-8 w-8 place-items-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200"><X className="h-4 w-4" /></button>
-                    <button onClick={() => setStatus(b.id, "completed")} title="Mark completed"
-                      className="rounded-lg bg-sky-100 px-2 text-xs font-semibold text-sky-700 hover:bg-sky-200">Done</button>
+                    <button
+                      onClick={() => setStatus(b.id, "approved")}
+                      disabled={busy === b.id}
+                      title="Approve"
+                      className="grid h-8 w-8 place-items-center rounded-sm border border-forest/30
+                                 bg-forest/5 text-forest hover:bg-forest hover:text-cream
+                                 disabled:opacity-40 transition"
+                    >
+                      {busy === b.id
+                        ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        : <Check className="h-4 w-4" />
+                      }
+                    </button>
+                    <button
+                      onClick={() => setStatus(b.id, "rejected")}
+                      disabled={busy === b.id}
+                      title="Reject"
+                      className="grid h-8 w-8 place-items-center rounded-sm border border-red-200
+                                 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white
+                                 disabled:opacity-40 transition"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => setStatus(b.id, "completed")}
+                      disabled={busy === b.id}
+                      title="Mark completed"
+                      className="rounded-sm border border-forest/20 bg-kraft/40 px-2 text-xs
+                                 font-semibold uppercase tracking-wide text-forest/70
+                                 hover:bg-forest hover:text-cream disabled:opacity-40 transition"
+                    >
+                      Done
+                    </button>
                   </div>
                 </td>
               </tr>
             ))}
             {items.length === 0 && (
-              <tr><td colSpan={6} className="px-5 py-8 text-center text-stone-400">No bookings found.</td></tr>
+              <tr>
+                <td colSpan={6} className="px-5 py-12 text-center text-sm uppercase tracking-widest text-forest/30">
+                  No bookings found.
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

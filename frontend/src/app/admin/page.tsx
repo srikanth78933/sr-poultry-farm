@@ -1,17 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Bird, CheckCircle2, PackageCheck, CalendarClock, ShoppingBag, IndianRupee, Hourglass } from "lucide-react";
+import { Egg, PackageCheck, PackageX, CalendarClock, Hourglass, ShoppingBag, ArrowUpRight } from "lucide-react";
 import { api } from "@/lib/api";
 import type { DashboardStats } from "@/types";
 
-const cards = (s: DashboardStats) => [
-  { label: "Total Birds", value: s.total_birds, icon: Bird, color: "bg-emerald-500" },
-  { label: "Available", value: s.available_birds, icon: CheckCircle2, color: "bg-lime-500" },
-  { label: "Sold", value: s.sold_birds, icon: PackageCheck, color: "bg-stone-500" },
-  { label: "Upcoming Visits", value: s.upcoming_bookings, icon: CalendarClock, color: "bg-sky-500" },
-  { label: "Pending Bookings", value: s.pending_bookings, icon: Hourglass, color: "bg-amber-500" },
-  { label: "Total Orders", value: s.total_orders, icon: ShoppingBag, color: "bg-indigo-500" },
-];
+const rupee = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -23,47 +16,95 @@ export default function Dashboard() {
       .catch((e) => setError(e.message));
   }, []);
 
+  const today = new Date().toLocaleDateString("en-IN", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
+  });
+
   return (
     <div>
-      <h1 className="font-display text-3xl font-bold text-farm-greenDark">Dashboard</h1>
-      <p className="text-stone-500">Overview of your farm at a glance.</p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+        <div>
+          <h1 className="font-serif text-2xl sm:text-3xl text-forest font-medium">Morning Overview</h1>
+          <p className="text-xs sm:text-sm text-forest/60 mt-1">{today}</p>
+        </div>
+        <a href="/admin/orders" className="inline-flex items-center justify-center gap-1 bg-forest text-cream px-4 py-2.5 rounded-sm text-xs uppercase tracking-widest font-semibold hover:bg-forest-deep transition-colors shrink-0 w-full sm:w-auto">
+          + New Order
+        </a>
+      </div>
 
-      {error && <p className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-rose-600">{error}</p>}
+      {error && (
+        <div className="mb-6 rounded-sm bg-red-50 border border-red-200 px-4 py-3">
+          <p className="text-sm text-red-700">{error}</p>
+        </div>
+      )}
+
+      {!stats && !error && (
+        <div className="flex items-center justify-center py-24">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-forest/20 border-t-forest" />
+        </div>
+      )}
 
       {stats && (
         <>
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {cards(stats).map((c) => (
-              <div key={c.label} className="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                <span className={`grid h-14 w-14 place-items-center rounded-2xl text-white ${c.color}`}>
-                  <c.icon className="h-7 w-7" />
-                </span>
-                <div>
-                  <p className="text-3xl font-bold text-stone-800">{c.value}</p>
-                  <p className="text-sm text-stone-500">{c.label}</p>
-                </div>
-              </div>
-            ))}
+          {/* 6-column stat grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+            <Stat icon={Egg}         label="Total Birds"      value={stats.total_birds} />
+            <Stat icon={PackageCheck} label="Available"        value={stats.available_birds} accent />
+            <Stat icon={PackageX}    label="Sold"             value={stats.sold_birds} />
+            <Stat icon={CalendarClock} label="Upcoming Visits" value={stats.upcoming_bookings} />
+            <Stat icon={Hourglass}   label="Pending"          value={stats.pending_bookings} warn />
+            <Stat icon={ShoppingBag} label="Total Orders"     value={stats.total_orders} />
           </div>
 
-          <div className="mt-5 grid gap-5 sm:grid-cols-2">
-            <div className="rounded-2xl bg-gradient-to-br from-farm-green to-farm-greenDark p-6 text-white">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/20">
-                <IndianRupee className="h-6 w-6" />
-              </span>
-              <p className="mt-4 text-sm text-farm-sand/80">Revenue Collected</p>
-              <p className="text-3xl font-bold">₹{stats.revenue_collected.toLocaleString("en-IN")}</p>
+          {/* Revenue */}
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            <div className="relative overflow-hidden rounded-lg p-6 bg-gradient-to-br from-forest to-forest-deep text-cream shadow-lift">
+              <div className="absolute inset-0 kraft-noise opacity-15 pointer-events-none" />
+              <div className="relative">
+                <div className="text-[10px] uppercase tracking-[0.22em] font-bold text-amber-farm">Revenue Collected</div>
+                <div className="font-serif text-5xl font-medium mt-3 tracking-tight">
+                  {rupee(stats.revenue_collected)}
+                </div>
+                <div className="mt-4 text-xs text-cream/60 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 bg-amber-farm/20 text-amber-farm px-2 py-0.5 rounded-sm">
+                    <ArrowUpRight className="size-3" /> Live
+                  </span>
+                  from {stats.total_orders} paid orders
+                </div>
+              </div>
             </div>
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-farm-gold/20 text-farm-gold">
-                <IndianRupee className="h-6 w-6" />
-              </span>
-              <p className="mt-4 text-sm text-stone-500">Total Billed</p>
-              <p className="text-3xl font-bold text-stone-800">₹{stats.revenue_billed.toLocaleString("en-IN")}</p>
+            <div className="relative overflow-hidden rounded-lg p-6 bg-cream border border-forest/10 shadow-craft">
+              <div className="text-[10px] uppercase tracking-[0.22em] font-bold text-forest/50">Total Billed</div>
+              <div className="font-serif text-5xl font-medium mt-3 text-forest tracking-tight">
+                {rupee(stats.revenue_billed)}
+              </div>
+              <div className="mt-4 text-xs text-forest/60">
+                {rupee(Math.max(0, stats.revenue_billed - stats.revenue_collected))} outstanding
+              </div>
             </div>
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+function Stat({
+  icon: Icon, label, value, accent, warn,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: number;
+  accent?: boolean;
+  warn?: boolean;
+}) {
+  return (
+    <div className="bg-cream border border-forest/10 rounded-lg p-3 sm:p-4 shadow-craft">
+      <div className="flex items-center gap-1.5 mb-2 sm:mb-3">
+        <Icon className={`size-3 sm:size-3.5 shrink-0 ${accent ? "text-forest" : warn ? "text-amber-farm" : "text-forest/40"}`} />
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] font-bold text-forest/50 truncate">{label}</span>
+      </div>
+      <div className={`font-serif text-2xl sm:text-3xl font-medium ${warn ? "text-amber-farm" : "text-forest"}`}>{value}</div>
     </div>
   );
 }

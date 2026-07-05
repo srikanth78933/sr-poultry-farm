@@ -31,6 +31,8 @@ interface Options extends RequestInit {
   json?: unknown;
 }
 
+const REQUEST_TIMEOUT_MS = 15_000;
+
 export async function api<T>(path: string, opts: Options = {}): Promise<T> {
   const headers: Record<string, string> = { ...(opts.headers as Record<string, string>) };
   let body = opts.body;
@@ -44,13 +46,32 @@ export async function api<T>(path: string, opts: Options = {}): Promise<T> {
     if (token) headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE}/api${path}`, { ...opts, headers, body });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}/api${path}`, {
+      ...opts,
+      headers,
+      body,
+      signal: controller.signal,
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("Request timed out. Please try again.");
+    }
+    throw new Error("Network error. Check your connection.");
+  } finally {
+    clearTimeout(timer);
+  }
+
   if (!res.ok) {
     let detail = `Request failed (${res.status})`;
     try {
       const data = await res.json();
       if (data?.detail) detail = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail);
-    } catch {}
+    } catch { /* non-JSON error body */ }
     throw new Error(detail);
   }
   if (res.status === 204) return undefined as T;

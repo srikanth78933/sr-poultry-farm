@@ -1,5 +1,6 @@
+from decimal import Decimal
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -15,8 +16,8 @@ router = APIRouter(prefix="/orders", tags=["orders"], dependencies=[Depends(get_
 
 
 def _recompute_payment_status(order: Order) -> None:
-    paid = sum(float(p.amount) for p in order.payments)
-    total = float(order.total_amount)
+    paid = sum(Decimal(str(p.amount)) for p in order.payments)
+    total = Decimal(str(order.total_amount))
     if paid <= 0:
         order.payment_status = PaymentStatus.unpaid
     elif paid < total:
@@ -26,8 +27,12 @@ def _recompute_payment_status(order: Order) -> None:
 
 
 @router.get("", response_model=List[OrderOut])
-def list_orders(db: Session = Depends(get_db)):
-    return db.scalars(select(Order).order_by(Order.created_at.desc())).all()
+def list_orders(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=200),
+    db: Session = Depends(get_db),
+):
+    return db.scalars(select(Order).order_by(Order.created_at.desc()).offset(skip).limit(limit)).all()
 
 
 @router.post("", response_model=OrderOut, status_code=201)

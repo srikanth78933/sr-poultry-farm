@@ -1,8 +1,8 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
@@ -12,10 +12,10 @@ router = APIRouter(prefix="/customers", tags=["customers"], dependencies=[Depend
 
 
 class CustomerIn(BaseModel):
-    name: str
-    mobile: str
-    email: str = ""
-    address: str = ""
+    name: str = Field(..., min_length=2, max_length=150)
+    mobile: str = Field(..., min_length=7, max_length=20)
+    email: str = Field("", max_length=254)
+    address: str = Field("", max_length=500)
 
 
 class CustomerOut(CustomerIn):
@@ -26,8 +26,12 @@ class CustomerOut(CustomerIn):
 
 
 @router.get("", response_model=List[CustomerOut])
-def list_customers(db: Session = Depends(get_db)):
-    return db.scalars(select(Customer).order_by(Customer.created_at.desc())).all()
+def list_customers(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=500),
+    db: Session = Depends(get_db),
+):
+    return db.scalars(select(Customer).order_by(Customer.created_at.desc()).offset(skip).limit(limit)).all()
 
 
 @router.post("", response_model=CustomerOut, status_code=201)

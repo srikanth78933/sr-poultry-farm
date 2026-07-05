@@ -1,16 +1,31 @@
+import re
 from datetime import date, datetime
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from app.models.enums import BookingStatus
+
+_PHONE_RE = re.compile(r"^\+?[\d\s\-]{7,20}$")
 
 
 class BookingCreate(BaseModel):
-    customer_name: str = Field(..., max_length=150)
+    customer_name: str = Field(..., min_length=2, max_length=150)
     mobile: str = Field(..., min_length=7, max_length=20)
     visit_date: date
     time_slot: str = Field(..., max_length=40)
     num_visitors: int = Field(1, ge=1, le=50)
-    purpose: str = ""
+    purpose: str = Field("", max_length=500)
+
+    @field_validator("mobile")
+    @classmethod
+    def validate_mobile(cls, v: str) -> str:
+        if not _PHONE_RE.match(v):
+            raise ValueError("Enter a valid phone number (digits, spaces, hyphens, optional leading +)")
+        return v.strip()
+
+    @field_validator("customer_name")
+    @classmethod
+    def validate_name(cls, v: str) -> str:
+        return v.strip()
 
 
 class BookingStatusUpdate(BaseModel):

@@ -1,6 +1,6 @@
 from datetime import date
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -59,8 +59,13 @@ def create_booking(payload: BookingCreate, db: Session = Depends(get_db)):
 
 # ---- Admin protected ----
 @router.get("", response_model=List[BookingOut], dependencies=[Depends(get_current_user)])
-def list_bookings(status: Optional[BookingStatus] = None, db: Session = Depends(get_db)):
-    stmt = select(FarmVisit).order_by(FarmVisit.visit_date.desc(), FarmVisit.id.desc())
+def list_bookings(
+    status: Optional[BookingStatus] = None,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=500),
+    db: Session = Depends(get_db),
+):
+    stmt = select(FarmVisit).order_by(FarmVisit.visit_date.desc(), FarmVisit.id.desc()).offset(skip).limit(limit)
     if status:
         stmt = stmt.where(FarmVisit.status == status)
     return db.scalars(stmt).all()

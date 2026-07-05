@@ -1,21 +1,21 @@
 const map: Record<string, string> = {
-  available: "bg-emerald-100 text-emerald-700",
-  reserved: "bg-amber-100 text-amber-700",
-  sold: "bg-stone-200 text-stone-600",
-  pending: "bg-amber-100 text-amber-700",
-  approved: "bg-emerald-100 text-emerald-700",
-  rejected: "bg-rose-100 text-rose-700",
-  completed: "bg-sky-100 text-sky-700",
-  cancelled: "bg-stone-200 text-stone-600",
-  billed: "bg-sky-100 text-sky-700",
-  unpaid: "bg-rose-100 text-rose-700",
-  partial: "bg-amber-100 text-amber-700",
-  paid: "bg-emerald-100 text-emerald-700",
+  available: "border-forest/30 bg-forest/10 text-forest",
+  reserved:  "border-amber-farm/40 bg-amber-farm/10 text-amber-deep",
+  sold:      "border-forest/15 bg-kraft/50 text-forest/60",
+  pending:   "border-amber-farm/40 bg-amber-farm/10 text-amber-deep",
+  approved:  "border-forest/30 bg-forest/10 text-forest",
+  rejected:  "border-red-300 bg-red-50 text-red-600",
+  completed: "border-forest/15 bg-kraft/50 text-forest/70",
+  cancelled: "border-forest/10 bg-kraft/30 text-forest/50",
+  billed:    "border-forest/15 bg-kraft/50 text-forest/70",
+  unpaid:    "border-red-300 bg-red-50 text-red-600",
+  partial:   "border-amber-farm/40 bg-amber-farm/10 text-amber-deep",
+  paid:      "border-forest/30 bg-forest/10 text-forest",
 };
 
 export default function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`chip capitalize ${map[status] ?? "bg-stone-100 text-stone-600"}`}>
+    <span className={`chip border capitalize ${map[status] ?? "border-forest/10 bg-kraft/30 text-forest/50"}`}>
       {status}
     </span>
   );

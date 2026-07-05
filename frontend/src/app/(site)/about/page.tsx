@@ -1,94 +1,105 @@
-import type { Metadata } from "next";
-import { Leaf, Sun, Droplets, ShieldCheck, Sprout, Heart, Utensils, BadgeCheck } from "lucide-react";
-import Reveal from "@/components/Reveal";
+﻿import type { Metadata } from "next";
+import Image from "next/image";
+import { Sprout, Wheat, Sun, HeartHandshake } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Our Farm",
-  description: "The story behind SR Natu Kodi Farms — village taste to your home through natural farming, free roaming birds, and traditional care.",
+  title: "The Farm — Natu Kodi Farms",
+  description: "Our story: a family-run country chicken farm in Annamayya District, Andhra Pradesh, raising heritage breeds the natural way since 2018.",
 };
 
-const points = [
-  { icon: Sprout, title: "Natural Farming Practices", desc: "We follow time-tested, natural methods — no shortcuts, no artificial growth boosters." },
-  { icon: Sun, title: "Free Roaming Birds", desc: "Our Natu Kodi roam freely across open garden space, just as country chicken should." },
-  { icon: Utensils, title: "Traditional Feeding", desc: "Grains, greens and natural feed give our birds their authentic, rich flavour." },
-  { icon: Droplets, title: "Clean Water", desc: "Constant access to fresh, clean water keeps the flock healthy and active." },
-  { icon: Leaf, title: "Healthy Environment", desc: "Open, low-stress surroundings mean stronger, happier, healthier birds." },
-  { icon: ShieldCheck, title: "No Unnecessary Chemicals", desc: "We avoid needless antibiotics and hormones for clean, honest poultry." },
-  { icon: Heart, title: "Better Taste", desc: "Slow, natural growth develops the firm texture and deep taste of true natu kodi." },
-  { icon: BadgeCheck, title: "Quality Assurance", desc: "Every bird is checked for health and condition before it reaches you." },
+const steps = [
+  { icon: Sprout,        t: "Native chicks",        b: "We source heritage breed chicks from certified Andhra hatcheries — no commercial broiler lines." },
+  { icon: Wheat,         t: "Natural feed",          b: "Millets, broken rice, greens and kitchen scraps. Zero antibiotic growth promoters." },
+  { icon: Sun,           t: "Free-range pasture",    b: "8+ months of open orchard foraging. Every bird lives outdoors, not in cages." },
+  { icon: HeartHandshake, t: "Farm-gate handover",  b: "Customer selects, we weigh live at the counter. Complete transparency, always." },
 ];
 
-const process = [
-  { n: "01", title: "Natural Growth", desc: "Chicks are raised slowly and naturally, never rushed." },
-  { n: "02", title: "Healthy Feeding", desc: "A traditional diet of grains and greens — nothing artificial." },
-  { n: "03", title: "Open Environment", desc: "Free roaming across green, sunlit farm space." },
-  { n: "04", title: "Quality Checking", desc: "Careful health checks before any bird is offered for sale." },
+const quality = [
+  "Certified by the AP State Veterinary Department",
+  "Regular water and soil quality tests every quarter",
+  "No antibiotic growth promoters — ever",
+  "Farm inspections open to all customers",
+  "Traceability from chick to counter",
+  "Halal slaughter available on request",
 ];
 
 export default function AboutPage() {
   return (
     <>
-      <section
-        className="relative -mt-24 flex min-h-[60vh] items-end bg-cover bg-center"
-        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&auto=format&q=80)" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-farm-cream via-farm-greenDark/30 to-transparent" />
-        <div className="container-x relative z-10 pb-12">
-          <span className="eyebrow text-farm-sand">Our Story</span>
-          <h1 className="mt-2 font-display text-5xl font-extrabold text-white sm:text-6xl">Why SR Natu Kodi Farms?</h1>
-          <p className="mt-3 max-w-2xl text-farm-sand">
-            Village taste to your home — because real country chicken deserves real country care.
-          </p>
-        </div>
-      </section>
-
-      <section className="container-x py-16">
-        <Reveal>
-          <div className="card mx-auto max-w-3xl p-8 sm:p-10">
-            <p className="text-lg leading-relaxed text-stone-600">
-              At <span className="font-semibold text-farm-greenDark">SR Natu Kodi Farms</span>, we raise
-              Natu Kodi the way it has always been done — birds roaming freely under open skies,
-              fed traditionally, and given clean water and a calm, healthy environment. No factory
-              cages, no unnecessary chemicals. Just patient, natural farming that brings out the
-              authentic taste country chicken is loved for.
+      {/* Hero split */}
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-24 grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span className="font-telugu text-amber-farm text-xl mb-2 block">మా కథ</span>
+          <h1 className="font-serif text-5xl md:text-6xl font-medium text-forest text-balance mb-6">
+            A family farm in the heart of Annamayya District.
+          </h1>
+          <div className="space-y-5 text-forest/75 leading-relaxed">
+            <p>
+              Natu Kodi Farms began in 2018 when our founder returned from the city
+              to his ancestral land in Peddapuram, determined to bring back the honest
+              flavour of village chicken that had disappeared from urban markets.
+            </p>
+            <p>
+              Today, three generations of the family raise heritage Andhra breeds — Aseel,
+              Kadaknath, Sonali and Ghyas — on 12 acres of mango orchard. No shortcuts,
+              no antibiotics, no factory shed. Just birds, soil, sun and time.
+            </p>
+            <p className="font-serif italic text-forest text-xl">
+              "The scale doesn&apos;t lie. The soil doesn&apos;t lie. And neither do we."
             </p>
           </div>
-        </Reveal>
-
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {points.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.05}>
-              <div className="card h-full p-6">
-                <span className="grid h-12 w-12 place-items-center rounded-xl bg-farm-green/10 text-farm-green">
-                  <p.icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-4 font-display text-lg font-bold text-farm-greenDark">{p.title}</h3>
-                <p className="mt-1.5 text-sm text-stone-500">{p.desc}</p>
-              </div>
-            </Reveal>
-          ))}
+        </div>
+        <div className="relative">
+          <div className="aspect-[4/5] rounded-lg overflow-hidden ring-1 ring-forest/10 shadow-lift">
+            <Image
+              src="/farm-visit.jpg"
+              alt="Natu Kodi Farms farmland at dusk"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-20">
-        <div className="container-x">
-          <Reveal className="mb-12 text-center">
-            <span className="eyebrow">Our Farming Process</span>
-            <h2 className="section-title mt-2">Four Steps to Honest Poultry</h2>
-          </Reveal>
-          <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((p, i) => (
-              <Reveal key={p.n} delay={i * 0.08}>
-                <div className="card h-full p-7">
-                  <span className="font-display text-5xl font-extrabold text-farm-green/15">{p.n}</span>
-                  <h3 className="-mt-4 font-display text-xl font-bold text-farm-greenDark">{p.title}</h3>
-                  <p className="mt-2 text-sm text-stone-500">{p.desc}</p>
+      {/* 4-step process */}
+      <section className="bg-kraft/40 py-24 relative">
+        <div className="absolute inset-0 kraft-noise opacity-30 pointer-events-none" />
+        <div className="relative mx-auto max-w-7xl px-6">
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-forest text-balance mb-14 max-w-2xl">
+            Our 4-step farming process
+          </h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            {steps.map((s, i) => (
+              <div key={s.t} className="bg-cream border border-forest/10 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="size-12 rounded-full bg-forest/5 grid place-items-center">
+                    <s.icon className="size-5 text-forest" />
+                  </div>
+                  <span className="font-serif italic text-amber-farm text-2xl">0{i + 1}</span>
                 </div>
-              </Reveal>
+                <h3 className="font-serif text-xl text-forest font-medium mb-2">{s.t}</h3>
+                <p className="text-sm text-forest/60 leading-relaxed">{s.b}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Quality assurance */}
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <h2 className="font-serif text-3xl md:text-4xl font-medium text-forest mb-10 max-w-xl">
+          Quality assurance
+        </h2>
+        <ul className="grid md:grid-cols-2 gap-x-12 gap-y-4">
+          {quality.map((q) => (
+            <li key={q} className="flex items-start gap-3 border-b border-forest/10 pb-4">
+              <span className="size-2 rounded-full bg-amber-farm mt-2 shrink-0" />
+              <span className="text-forest/80">{q}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 }
+

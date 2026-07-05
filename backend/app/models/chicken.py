@@ -21,7 +21,7 @@ class Chicken(Base):
         Enum(ChickenStatus), default=ChickenStatus.available, nullable=False
     )
     is_featured: Mapped[bool] = mapped_column(Boolean, default=False)
-    cover_image: Mapped[str] = mapped_column(String(500), default="")
+    cover_image: Mapped[str] = mapped_column(Text, default="")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
@@ -37,7 +37,7 @@ class ChickenImage(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     chicken_id: Mapped[int] = mapped_column(ForeignKey("chickens.id", ondelete="CASCADE"))
-    url: Mapped[str] = mapped_column(String(500), nullable=False)
+    url: Mapped[str] = mapped_column(Text, nullable=False)
     alt_text: Mapped[str] = mapped_column(String(255), default="")
     sort_order: Mapped[int] = mapped_column(Integer, default=0)
 

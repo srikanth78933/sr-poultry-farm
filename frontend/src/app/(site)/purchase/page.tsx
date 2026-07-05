@@ -1,62 +1,61 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
-import { Eye, CalendarCheck, MapPin, Hand, Scale, ReceiptText, Wallet, ArrowRight } from "lucide-react";
-import Reveal from "@/components/Reveal";
+import { MapPin, Search, Scale, Wallet, PackageCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Buy",
-  description: "How buying naturally raised Natu Kodi works at SR Natu Kodi Farms — visit, choose, weigh, pay.",
+  title: "How to Buy — Natu Kodi Farms",
+  description: "Book a visit, come to the farm, pick your bird, watch us weigh it live, pay only for actual weight. Zero advance.",
 };
 
 const steps = [
-  { icon: Eye, title: "View Available Birds", desc: "Browse our current flock online with weights, age and price per kg." },
-  { icon: CalendarCheck, title: "Book a Farm Visit", desc: "Pick a date and time slot. We confirm your booking and reserve your slot." },
-  { icon: MapPin, title: "Visit the Farm", desc: "Come and see the birds in their natural, free-roaming environment." },
-  { icon: Hand, title: "Select Your Chicken", desc: "Choose the exact bird you want, in person." },
-  { icon: Scale, title: "Live Weighing", desc: "We weigh your selected bird in front of you for full transparency." },
-  { icon: ReceiptText, title: "Final Bill", desc: "Total = actual weight × price per kg. No hidden charges." },
-  { icon: Wallet, title: "Pay & Take Home", desc: "Pay by cash or UPI and take home your fresh country chicken." },
+  { icon: MapPin,        title: "Visit the Farm",        body: "Book a time slot online or WhatsApp us. Bring the whole family — parking, seating and tea are on us." },
+  { icon: Search,        title: "Select a Bird",         body: "Walk through the orchards, meet the flock, and hand-pick the specific bird you want." },
+  { icon: Scale,         title: "Live Weighing",         body: "Our digital scale sits at the counter. You watch the number, we don't touch it." },
+  { icon: Wallet,        title: "Pay by UPI or Cash",    body: "Total = weight × per-kg rate. Pay only when you're happy. No advance, no surprises." },
+  { icon: PackageCheck,  title: "Fresh Handover",        body: "Cleaned, cut to your preference, packed in food-grade ice. Home within hours." },
 ];
 
 export default function PurchasePage() {
   return (
-    <section className="container-x py-16">
-      <Reveal className="mb-12 text-center">
-        <span className="eyebrow">The Purchase Flow</span>
-        <h1 className="section-title mt-2 text-4xl sm:text-5xl">How to Buy Our Natu Kodi</h1>
-        <p className="mx-auto mt-3 max-w-2xl text-stone-500">
-          We believe in honesty and transparency. That is why we sell only after you visit —
-          so you choose your bird and see it weighed live before you pay.
-        </p>
-      </Reveal>
+    <>
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-10">
+        <span className="font-telugu text-amber-farm text-xl block mb-2">ఎలా కొనాలి</span>
+        <h1 className="font-serif text-5xl md:text-6xl font-medium text-forest text-balance max-w-3xl">
+          Simple, transparent, and completely honest.
+        </h1>
 
-      <div className="relative mx-auto max-w-3xl">
-        <div className="absolute left-6 top-0 hidden h-full w-0.5 bg-farm-green/20 sm:block" />
-        <div className="space-y-5">
-          {steps.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.05}>
-              <div className="relative flex items-start gap-5 rounded-3xl bg-white p-6 shadow-sm">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-farm-green text-white shadow-lg">
-                  <s.icon className="h-6 w-6" />
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-widest text-farm-leaf">Step {i + 1}</span>
-                  </div>
-                  <h3 className="font-display text-xl font-bold text-farm-greenDark">{s.title}</h3>
-                  <p className="mt-1 text-sm text-stone-500">{s.desc}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mt-10 inline-flex items-center gap-4 bg-forest text-cream px-6 py-4 rounded-sm">
+          <span className="font-serif text-3xl leading-none text-amber-farm">₹0</span>
+          <span className="text-sm uppercase tracking-widest font-semibold">No advance payment. Ever.</span>
         </div>
-      </div>
+      </section>
 
-      <div className="mt-12 text-center">
-        <Link href="/book-visit" className="btn-primary">
-          Start by booking a visit <ArrowRight className="h-4 w-4" />
-        </Link>
-      </div>
-    </section>
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <ol className="relative border-l-2 border-dashed border-forest/20 ml-6 space-y-12 pt-8">
+          {steps.map((s, i) => (
+            <li key={s.title} className="relative pl-10">
+              <span className="absolute -left-[27px] top-0 size-12 rounded-full bg-cream border-2 border-forest grid place-items-center shadow-craft">
+                <s.icon className="size-5 text-forest" />
+              </span>
+              <div className="flex items-baseline gap-3">
+                <span className="font-serif italic text-amber-farm text-2xl">0{i + 1}</span>
+                <h3 className="font-serif text-2xl text-forest font-medium">{s.title}</h3>
+              </div>
+              <p className="text-forest/70 mt-2 leading-relaxed max-w-xl">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-16 pl-10">
+          <Link
+            href="/book-visit"
+            className="inline-flex items-center gap-2 bg-amber-farm text-cream px-6 py-3.5 rounded-sm font-semibold text-sm uppercase tracking-widest hover:bg-amber-deep transition-colors shadow-lift"
+          >
+            Book a Farm Visit
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }
+

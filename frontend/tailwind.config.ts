@@ -5,41 +5,44 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        forest:      "#14532d",
+        "forest-deep": "#0a3b1e",
+        "amber-farm": "#d97706",
+        "amber-deep": "#b45309",
+        cream:       "#fdf6e3",
+        kraft:       "#f5ead0",
+        soil:        "#fafaf5",
+        // keep farm.* aliases for any remaining code
         farm: {
-          green: "#166534",
-          greenDark: "#14532d",
-          greenLight: "#22c55e",
-          leaf: "#4d7c0f",
-          earth: "#7c2d12",
-          earthLight: "#b45309",
-          cream: "#fefce8",
-          sand: "#fef9c3",
-          gold: "#f59e0b",
+          green:     "#14532d",
+          greenDark: "#0a3b1e",
+          gold:      "#d97706",
+          cream:     "#fdf6e3",
+          kraft:     "#f5ead0",
+          soil:      "#fafaf5",
+          muted:     "#5a7a62",
+          sand:      "#c4b5a0",
+          brown:     "#4a3728",
+          brownDark: "#2c1e16",
+          border:    "#14532d1f",
+          red:       "#b91c1c",
+          warm:      "#f5ead0",
+          parchment: "#fdf6e3",
+          leaf:      "#5a7a62",
         },
       },
       fontFamily: {
-        sans: ["var(--font-body)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        serif:   ['"Crimson Pro"', "ui-serif", "Georgia", "serif"],
+        sans:    ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        telugu:  ["Ramabhadra", '"Noto Sans Telugu"', "serif"],
+        display: ['"Crimson Pro"', "Georgia", "serif"],
       },
-      keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        float: {
-          "0%,100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
-        },
+      boxShadow: {
+        craft: "0 1px 0 rgb(20 83 45 / 0.04), 0 8px 24px -12px rgb(20 83 45 / 0.15)",
+        lift:  "0 10px 40px -18px rgb(20 83 45 / 0.35)",
       },
-      animation: {
-        "fade-up": "fade-up 0.7s ease-out both",
-        float: "float 6s ease-in-out infinite",
-      },
-      backgroundImage: {
-        "grain": "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)",
+      borderRadius: {
+        sm: "0.1875rem",
       },
     },
   },

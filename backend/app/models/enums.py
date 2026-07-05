@@ -12,6 +12,12 @@ class ChickenStatus(str, enum.Enum):
     sold = "sold"
 
 
+class EggAvailability(str, enum.Enum):
+    available = "available"
+    limited = "limited"
+    out_of_stock = "out_of_stock"
+
+
 class BookingStatus(str, enum.Enum):
     pending = "pending"
     approved = "approved"
