@@ -37,6 +37,10 @@ class Settings(BaseSettings):
     ADMIN_WHATSAPP_NUMBER: str = ""
     CALLMEBOT_API_KEY: str = ""
 
+    # Telegram admin alerts (via official Bot API — https://core.telegram.org/bots)
+    TELEGRAM_BOT_TOKEN: str = ""
+    TELEGRAM_CHAT_ID: str = ""
+
     # Storage
     STORAGE_BACKEND: str = "local"
     LOCAL_STORAGE_DIR: str = "/app/storage/uploads"

@@ -1,7 +1,9 @@
-"""WhatsApp admin alerts + booking review magic links.
+"""Admin booking alerts + booking review magic links.
 
-Uses CallMeBot (https://www.callmebot.com/blog/free-api-whatsapp-messages/) to push a
-plain-text WhatsApp message to the farm admin's own phone — no Meta Business API needed.
+Pushes a one-tap approve/decline link to the admin over WhatsApp (via CallMeBot —
+https://www.callmebot.com/blog/free-api-whatsapp-messages/) and/or Telegram (via the
+official Bot API). Both are best-effort and independently optional — whichever is
+configured (one or both) will fire.
 """
 import logging
 from datetime import datetime, timedelta, timezone
@@ -50,8 +52,22 @@ def _send_whatsapp_text(text: str) -> None:
         logger.warning("Failed to send WhatsApp alert via CallMeBot", exc_info=True)
 
 
+def _send_telegram_text(text: str) -> None:
+    if not settings.TELEGRAM_BOT_TOKEN or not settings.TELEGRAM_CHAT_ID:
+        logger.info("Telegram alert skipped — TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID not configured")
+        return
+    try:
+        httpx.post(
+            f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage",
+            json={"chat_id": settings.TELEGRAM_CHAT_ID, "text": text},
+            timeout=10,
+        )
+    except httpx.HTTPError:
+        logger.warning("Failed to send Telegram alert", exc_info=True)
+
+
 def send_admin_booking_alert(booking) -> None:
-    """Best-effort WhatsApp push to the admin with a one-tap approve/decline link."""
+    """Best-effort push to the admin (WhatsApp and/or Telegram) with a one-tap approve/decline link."""
     token = create_review_token(booking.id)
     link = f"{settings.APP_BASE_URL}/review/{booking.id}?token={quote(token)}"
     text = (
@@ -64,6 +80,7 @@ def send_admin_booking_alert(booking) -> None:
         f"Approve or decline: {link}"
     )
     _send_whatsapp_text(text)
+    _send_telegram_text(text)
 
 
 def build_customer_whatsapp_link(mobile: str, message: str) -> str:
